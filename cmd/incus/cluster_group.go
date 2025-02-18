@@ -482,8 +482,11 @@ Pre-defined column shorthand chars:
   d - Description
   m - Member`))
 
+	defaultFormat               := c.global.getClientDefault([]string{"cluster.group.list.format", "format"} , "table")
+	defaultClusterGroupColumns  := c.global.getClientDefault([]string{"cluster.group.list.columns"}, defaultClusterGroupColumns)
+
 	cmd.Flags().StringVarP(&c.flagColumns, "columns", "c", defaultClusterGroupColumns, i18n.G("Columns")+"``")
-	cmd.Flags().StringVarP(&c.flagFormat, "format", "f", "table", i18n.G(`Format (csv|json|table|yaml|compact), use suffix ",noheader" to disable headers and ",header" to enable it if missing, e.g. csv,header`)+"``")
+	cmd.Flags().StringVarP(&c.flagFormat, "format", "f", defaultFormat, i18n.G(`Format (csv|json|table|yaml|compact), use suffix ",noheader" to disable headers and ",header" to enable it if missing, e.g. csv,header`)+"``")
 
 	cmd.PreRunE = func(cmd *cobra.Command, args []string) error {
 		return cli.ValidateFlagFormatForListOutput(cmd.Flag("format").Value.String())

@@ -691,9 +691,14 @@ Pre-defined column shorthand chars:
   S - Source
   u - used by
   s - state`))
+
+
+	defaultFormat          := c.global.getClientDefault([]string{"storage.list.format", "format"} , "table")
+	defaultStorageColumns  := c.global.getClientDefault([]string{"storage.list.columns"}, defaultStorageColumns)
+
 	cmd.Flags().StringVarP(&c.flagColumns, "columns", "c", defaultStorageColumns, i18n.G("Columns")+"``")
 
-	cmd.Flags().StringVarP(&c.flagFormat, "format", "f", "table", i18n.G(`Format (csv|json|table|yaml|compact), use suffix ",noheader" to disable headers and ",header" to enable it if missing, e.g. csv,header`)+"``")
+	cmd.Flags().StringVarP(&c.flagFormat, "format", "f", defaultFormat, i18n.G(`Format (csv|json|table|yaml|compact), use suffix ",noheader" to disable headers and ",header" to enable it if missing, e.g. csv,header`)+"``")
 
 	cmd.PreRunE = func(cmd *cobra.Command, args []string) error {
 		return cli.ValidateFlagFormatForListOutput(cmd.Flag("format").Value.String())

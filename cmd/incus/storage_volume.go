@@ -1563,7 +1563,7 @@ func (c *cmdStorageVolumeList) Command() *cobra.Command {
 	cmd.Aliases = []string{"ls"}
 	cmd.Short = i18n.G("List storage volumes")
 
-	c.defaultColumns = "etndcuL"
+	c.defaultColumns = c.global.getClientDefault([]string{"storage.volume.list.columns"} , "etndcuL")
 	cmd.Flags().StringVarP(&c.flagColumns, "columns", "c", c.defaultColumns, i18n.G("Columns")+"``")
 	cmd.Flags().BoolVar(&c.flagAllProjects, "all-projects", false, i18n.G("All projects")+"``")
 	cmd.Long = cli.FormatSection(i18n.G("Description"), i18n.G(
@@ -1582,7 +1582,8 @@ Column shorthand chars:
     t - Type of volume (custom, image, container or virtual-machine)
     u - Number of references (used by)
     U - Current disk usage`))
-	cmd.Flags().StringVarP(&c.flagFormat, "format", "f", "table", i18n.G(`Format (csv|json|table|yaml|compact), use suffix ",noheader" to disable headers and ",header" to enable it if missing, e.g. csv,header`)+"``")
+	defaultFormat   := c.global.getClientDefault([]string{"storage.volume.list.format", "format"} , "table")
+	cmd.Flags().StringVarP(&c.flagFormat, "format", "f", defaultFormat, i18n.G(`Format (csv|json|table|yaml|compact), use suffix ",noheader" to disable headers and ",header" to enable it if missing, e.g. csv,header`)+"``")
 
 	cmd.PreRunE = func(cmd *cobra.Command, args []string) error {
 		return cli.ValidateFlagFormatForListOutput(cmd.Flag("format").Value.String())
@@ -2561,7 +2562,7 @@ func (c *cmdStorageVolumeSnapshotList) Command() *cobra.Command {
 	cmd.Long = cli.FormatSection(i18n.G("Description"), i18n.G(
 		`List storage volume snapshots`))
 
-	c.defaultColumns = "nTE"
+	c.defaultColumns = c.global.getClientDefault([]string{"storage.volume.snapshot.list.columns"} , "nTE")
 	cmd.Flags().StringVarP(&c.flagColumns, "columns", "c", c.defaultColumns, i18n.G("Columns")+"``")
 	cmd.Flags().BoolVar(&c.flagAllProjects, "all-projects", false, i18n.G("All projects")+"``")
 	cmd.Long = cli.FormatSection(i18n.G("Description"), i18n.G(
@@ -2575,7 +2576,9 @@ func (c *cmdStorageVolumeSnapshotList) Command() *cobra.Command {
 		n - Name
 		T - Taken at
 		E - Expiry`))
-	cmd.Flags().StringVarP(&c.flagFormat, "format", "f", "table", i18n.G(`Format (csv|json|table|yaml|compact), use suffix ",noheader" to disable headers and ",header" to enable it if missing, e.g. csv,header`)+"``")
+
+	defaultFormat   := c.global.getClientDefault([]string{"storage.volume.snapshot.list.format", "format"} , "table")
+	cmd.Flags().StringVarP(&c.flagFormat, "format", "f", defaultFormat, i18n.G(`Format (csv|json|table|yaml|compact), use suffix ",noheader" to disable headers and ",header" to enable it if missing, e.g. csv,header`)+"``")
 
 	cmd.PreRunE = func(cmd *cobra.Command, args []string) error {
 		return cli.ValidateFlagFormatForListOutput(cmd.Flag("format").Value.String())

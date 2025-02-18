@@ -24,6 +24,9 @@ type Config struct {
 	// Command line aliases for `incus`
 	Aliases map[string]string `yaml:"aliases"`
 
+        // Command line default arg values
+        Client map[string]string `yaml:"client"`
+
 	// Configuration directory
 	ConfigDir string `yaml:"-"`
 

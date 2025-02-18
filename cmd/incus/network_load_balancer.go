@@ -119,7 +119,8 @@ Pre-defined column shorthand chars:
   L - Location of the operation (e.g. its cluster member)`))
 
 	cmd.RunE = c.Run
-	cmd.Flags().StringVarP(&c.flagFormat, "format", "f", "table", i18n.G(`Format (csv|json|table|yaml|compact), use suffix ",noheader" to disable headers and ",header" to enable it if missing, e.g. csv,header`)+"``")
+	defaultFormat   := c.global.getClientDefault([]string{"network.load-balancer.list.format", "format"} , "table")
+	cmd.Flags().StringVarP(&c.flagFormat, "format", "f", defaultFormat, i18n.G(`Format (csv|json|table|yaml|compact), use suffix ",noheader" to disable headers and ",header" to enable it if missing, e.g. csv,header`)+"``")
 	cmd.Flags().StringVarP(&c.flagColumns, "columns", "c", defaultNetworkLoadBalancerColumns, i18n.G("Columns")+"``")
 
 	cmd.PreRunE = func(cmd *cobra.Command, args []string) error {
