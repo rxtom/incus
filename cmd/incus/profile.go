@@ -730,8 +730,10 @@ d - Description
 u - Used By`))
 
 	cmd.RunE = c.Run
+	defaultFormat   := c.global.getClientDefault([]string{"list.format", "format"} , "table")
+	defaultProfileColumns  := c.global.getClientDefault([]string{"list.columns"}, defaultProfileColumns)
 	cmd.Flags().StringVarP(&c.flagColumns, "columns", "c", defaultProfileColumns, i18n.G("Columns")+"``")
-	cmd.Flags().StringVarP(&c.flagFormat, "format", "f", "table", i18n.G(`Format (csv|json|table|yaml|compact), use suffix ",noheader" to disable headers and ",header" to enable it if missing, e.g. csv,header`)+"``")
+	cmd.Flags().StringVarP(&c.flagFormat, "format", "f", defaultFormat, i18n.G(`Format (csv|json|table|yaml|compact), use suffix ",noheader" to disable headers and ",header" to enable it if missing, e.g. csv,header`)+"``")
 	cmd.Flags().BoolVar(&c.flagAllProjects, "all-projects", false, i18n.G("Display profiles from all projects"))
 
 	cmd.PreRunE = func(cmd *cobra.Command, args []string) error {

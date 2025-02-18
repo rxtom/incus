@@ -92,6 +92,27 @@ func aliases() []string {
 	return aliases
 }
 
+func (c *cmdGlobal) getClientDefault(keys []string, defaultValue string) string {
+
+	conf := c.conf
+	var err error
+	if conf == nil || conf.Client == nil {
+		conf, err = config.LoadConfig("")
+		if err != nil {
+			return defaultValue
+		}
+	}
+
+	for _, fieldName := range keys {
+		value, ok := conf.Client[fieldName]
+		if ok {
+			return value
+		}
+	}
+
+	return defaultValue
+}
+
 func createApp() (*cobra.Command, *cmdGlobal) {
 	// Setup the parser
 	app := &cobra.Command{}

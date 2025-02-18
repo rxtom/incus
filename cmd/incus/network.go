@@ -1084,8 +1084,10 @@ s - State
 t - Interface type
 u - Used by (count)`))
 
+	defaultFormat   := c.global.getClientDefault([]string{"network.list.format", "format"} , "table")
+	defaultNetworkColumns  := c.global.getClientDefault([]string{"network.list.columns"}, defaultNetworkColumns)
 	cmd.Flags().StringVarP(&c.flagColumns, "columns", "c", defaultNetworkColumns, i18n.G("Columns")+"``")
-	cmd.Flags().StringVarP(&c.flagFormat, "format", "f", "table", i18n.G(`Format (csv|json|table|yaml|compact), use suffix ",noheader" to disable headers and ",header" to enable it if missing, e.g. csv,header`)+"``")
+	cmd.Flags().StringVarP(&c.flagFormat, "format", "f", defaultFormat, i18n.G(`Format (csv|json|table|yaml|compact), use suffix ",noheader" to disable headers and ",header" to enable it if missing, e.g. csv,header`)+"``")
 	cmd.Flags().BoolVar(&c.flagAllProjects, "all-projects", false, i18n.G("List networks in all projects"))
 
 	cmd.PreRunE = func(cmd *cobra.Command, args []string) error {
@@ -1289,7 +1291,9 @@ Pre-defined column shorthand chars:
   i - IP Address
   t - Type
   L - Location of the DHCP Lease (e.g. its cluster member)`))
-	cmd.Flags().StringVarP(&c.flagFormat, "format", "f", "table", i18n.G(`Format (csv|json|table|yaml|compact), use suffix ",noheader" to disable headers and ",header" to enable it if missing, e.g. csv,header`)+"``")
+	defaultFormat   := c.global.getClientDefault([]string{"network.leases.list.format", "format"} , "table")
+	defaultNetworkListLeasesColumns  := c.global.getClientDefault([]string{"network.leases.list.columns"}, defaultNetworkListLeasesColumns)
+	cmd.Flags().StringVarP(&c.flagFormat, "format", "f", defaultFormat, i18n.G(`Format (csv|json|table|yaml|compact), use suffix ",noheader" to disable headers and ",header" to enable it if missing, e.g. csv,header`)+"``")
 	cmd.Flags().StringVarP(&c.flagColumns, "columns", "c", defaultNetworkListLeasesColumns, i18n.G("Columns")+"``")
 
 	cmd.PreRunE = func(cmd *cobra.Command, args []string) error {
