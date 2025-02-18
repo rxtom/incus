@@ -1291,8 +1291,8 @@ Pre-defined column shorthand chars:
   i - IP Address
   t - Type
   L - Location of the DHCP Lease (e.g. its cluster member)`))
-	defaultFormat   := c.global.getClientDefault([]string{"network.leases.list.format", "format"} , "table")
-	defaultNetworkListLeasesColumns  := c.global.getClientDefault([]string{"network.leases.list.columns"}, defaultNetworkListLeasesColumns)
+	defaultFormat   := c.global.getClientDefault([]string{"network.list-leases.format", "format"} , "table")
+	defaultNetworkListLeasesColumns  := c.global.getClientDefault([]string{"network.list-leases.columns"}, defaultNetworkListLeasesColumns)
 	cmd.Flags().StringVarP(&c.flagFormat, "format", "f", defaultFormat, i18n.G(`Format (csv|json|table|yaml|compact), use suffix ",noheader" to disable headers and ",header" to enable it if missing, e.g. csv,header`)+"``")
 	cmd.Flags().StringVarP(&c.flagColumns, "columns", "c", defaultNetworkListLeasesColumns, i18n.G("Columns")+"``")
 

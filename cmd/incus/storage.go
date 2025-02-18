@@ -694,7 +694,7 @@ Pre-defined column shorthand chars:
 
 
 	defaultFormat          := c.global.getClientDefault([]string{"storage.list.format", "format"} , "table")
-	defaultStorageColumns  := c.global.getClientDefault([]string{"list.columns"}, defaultStorageColumns)
+	defaultStorageColumns  := c.global.getClientDefault([]string{"storage.list.columns"}, defaultStorageColumns)
 
 	cmd.Flags().StringVarP(&c.flagColumns, "columns", "c", defaultStorageColumns, i18n.G("Columns")+"``")
 

@@ -94,7 +94,7 @@ func (c *cmdNetworkACLList) Command() *cobra.Command {
 	cmd.Long = cli.FormatSection(i18n.G("Description"), i18n.G("List available network ACL"))
 
 	cmd.RunE = c.Run
-	defaultFormat   := c.global.getClientDefault([]string{"list.format", "format"} , "table")
+	defaultFormat   := c.global.getClientDefault([]string{"network.acl.list.format", "format"} , "table")
 	cmd.Flags().StringVarP(&c.flagFormat, "format", "f", defaultFormat, i18n.G(`Format (csv|json|table|yaml|compact), use suffix ",noheader" to disable headers and ",header" to enable it if missing, e.g. csv,header`)+"``")
 	cmd.Flags().BoolVar(&c.flagAllProjects, "all-projects", false, i18n.G("List network ACLs across all projects"))
 

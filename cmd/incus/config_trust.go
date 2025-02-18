@@ -422,7 +422,7 @@ Column shorthand chars:
 	p - Newline-separated list of projects`))
 
 	defaultFormat              := c.global.getClientDefault([]string{"config.trust.list.format", "format"} , "table")
-	defaultConfigTrustColumns  := c.global.getClientDefault([]string{"list.columns"}, "ntdfe")
+	defaultConfigTrustColumns  := c.global.getClientDefault([]string{"config.trust.list.columns"}, "ntdfe")
 	cmd.Flags().StringVarP(&c.flagColumns, "columns", "c", defaultConfigTrustColumns, i18n.G("Columns")+"``")
 	cmd.Flags().StringVarP(&c.flagFormat, "format", "f", defaultFormat, i18n.G(`Format (csv|json|table|yaml|compact), use suffix ",noheader" to disable headers and ",header" to enable it if missing, e.g. csv,header`)+"``")
 

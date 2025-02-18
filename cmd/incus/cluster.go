@@ -1095,8 +1095,8 @@ Pre-defined column shorthand chars:
   n - Name
   t - Token
   E - Expires At`))
-	defaultFormat          := c.global.getClientDefault([]string{"cluster.tokens.list.format", "format"} , "table")
-	defaultclusterTokensColumns  := c.global.getClientDefault([]string{"cluster.tokens.list.columns"}, defaultclusterTokensColumns)
+	defaultFormat          := c.global.getClientDefault([]string{"cluster.list-tokens.format", "format"} , "table")
+	defaultclusterTokensColumns  := c.global.getClientDefault([]string{"cluster.list-tokens.columns"}, defaultclusterTokensColumns)
 	cmd.Flags().StringVarP(&c.flagFormat, "format", "f", defaultFormat, i18n.G(`Format (csv|json|table|yaml|compact), use suffix ",noheader" to disable headers and ",header" to enable if demanded, e.g. csv,header`)+"``")
 	cmd.Flags().StringVarP(&c.flagColumns, "columns", "c", defaultclusterTokensColumns, i18n.G("Columns")+"``")
 

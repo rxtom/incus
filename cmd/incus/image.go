@@ -1090,9 +1090,10 @@ Column shorthand chars:
     u - Upload date
     t - Type`))
 
+	defaultFormat                   := c.global.getClientDefault([]string{"image.list.format", "format"} , "table")
+	defaultImagesColumns            := c.global.getClientDefault([]string{"image.list.columns"}, defaultImagesColumns)
+	defaultImagesColumnsAllProject   = c.global.getClientDefault([]string{"image.list.allprojects.columns"}, defaultImagesColumnsAllProjects)
 
-	defaultFormat          := c.global.getClientDefault([]string{"image.list.format", "format"} , "table")
-	defaultImagesColumns  := c.global.getClientDefault([]string{"image.list.columns"}, defaultImagesColumns)
 	cmd.Flags().StringVarP(&c.flagColumns, "columns", "c", defaultImagesColumns, i18n.G("Columns")+"``")
 	cmd.Flags().StringVarP(&c.flagFormat, "format", "f", defaultFormat, i18n.G(`Format (csv|json|table|yaml|compact), use suffix ",noheader" to disable headers and ",header" to enable it if missing, e.g. csv,header`)+"``")
 	cmd.Flags().BoolVar(&c.flagAllProjects, "all-projects", false, i18n.G("Display images from all projects"))
@@ -1115,7 +1116,7 @@ Column shorthand chars:
 }
 
 const defaultImagesColumns = "lfpdatsu"
-const defaultImagesColumnsAllProjects = "elfpdatsu"
+var   defaultImagesColumnsAllProjects = "elfpdatsu"
 
 func (c *cmdImageList) parseColumns() ([]imageColumn, error) {
 	columnsShorthandMap := map[rune]imageColumn{

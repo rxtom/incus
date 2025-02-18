@@ -111,7 +111,8 @@ p - Port
 L - Location of the network zone (e.g. its cluster member)`))
 
 	cmd.RunE = c.Run
-	defaultFormat   := c.global.getClientDefault([]string{"network.forward.list.format", "format"} , "table")
+	defaultFormat                := c.global.getClientDefault([]string{"network.forward.list.format", "format"} , "table")
+	defaultNetworkForwardColumns := c.global.getClientDefault([]string{"network.forward.list.columns"} , defaultNetworkForwardColumns)
 	cmd.Flags().StringVarP(&c.flagFormat, "format", "f", defaultFormat, i18n.G(`Format (csv|json|table|yaml|compact), use suffix ",noheader" to disable headers and ",header" to enable it if missing, e.g. csv,header`)+"``")
 	cmd.Flags().StringVarP(&c.flagColumns, "columns", "c", defaultNetworkForwardColumns, i18n.G("Columns")+"``")
 
