@@ -22,6 +22,7 @@ const (
 	TableFormatTable   = "table"
 	TableFormatYAML    = "yaml"
 	TableFormatCompact = "compact"
+	TableFormatLCompact = "lcompact"
 )
 
 const (
@@ -57,6 +58,20 @@ func RenderTable(w io.Writer, format string, header []string, data [][]string, r
 		table.SetHeaderLine(false)
 		table.SetBorder(false)
 		table.Render()
+	case TableFormatLCompact:
+                table := getBaseTable(w, header, data)
+                table.SetAutoWrapText(false)
+                table.SetAutoFormatHeaders(true)
+                table.SetHeaderAlignment(tablewriter.ALIGN_LEFT)
+                table.SetAlignment(tablewriter.ALIGN_LEFT)
+                table.SetCenterSeparator("")
+                table.SetRowSeparator("")
+                table.SetColumnSeparator("")
+                table.SetHeaderLine(false)
+                table.SetBorder(false)
+                table.SetTablePadding("\t")
+                table.SetNoWhiteSpace(true)
+                table.Render()
 	case TableFormatCSV:
 		w := csv.NewWriter(w)
 		if slices.Contains(options, TableOptionHeader) {
@@ -134,7 +149,7 @@ func ValidateFlagFormatForListOutput(value string) error {
 	}
 
 	switch format {
-	case "csv", "json", "table", "yaml", "compact":
+	case "csv", "json", "table", "yaml", "compact", "lcompact":
 	default:
 		return fmt.Errorf(`Invalid value %q for flag "--format"`, format)
 	}

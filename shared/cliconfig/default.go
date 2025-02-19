@@ -35,6 +35,7 @@ func DefaultConfig() *Config {
 	return &Config{
 		Remotes:       util.CloneMap(DefaultRemotes),
 		Aliases:       make(map[string]string),
+		Client:        make(map[string]string),
 		DefaultRemote: "local",
 	}
 }
