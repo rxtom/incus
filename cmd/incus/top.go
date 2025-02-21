@@ -60,9 +60,14 @@ Column shorthand chars:
   n - Instance name
   u - CPU usage (in seconds)`))
 
+	defaultFormat      := c.global.getClientDefault([]string{"top.format","format"} , "table")
+	if defaultFormat != "table" || defaultFormat != "compact" || defaultFormat != "lcompact" {
+		defaultFormat = "table"
+	}
+	defaultTopColumns  := c.global.getClientDefault([]string{"top.columns"}, defaultTopColumns)
 	cmd.Flags().BoolVar(&c.flagAllProjects, "all-projects", false, i18n.G("Display instances from all projects"))
 	cmd.Flags().StringVarP(&c.flagColumns, "columns", "c", defaultTopColumns, i18n.G("Columns")+"``")
-	cmd.Flags().StringVarP(&c.flagFormat, "format", "f", "table", i18n.G("Format (table|compact)")+"``")
+	cmd.Flags().StringVarP(&c.flagFormat, "format", "f", defaultFormat, i18n.G("Format (table|compact)")+"``")
 	cmd.Flags().IntVar(&c.flagRefresh, "refresh", 10, i18n.G("Configure the refresh delay in seconds")+"``")
 
 	cmd.RunE = c.Run

@@ -147,8 +147,11 @@ func (c *cmdClusterList) Command() *cobra.Command {
     s - Status
     m - Message`))
 
+	defaultFormat          := c.global.getClientDefault([]string{"cluster.list.format", "format"} , "table")
+	defaultClusterColumns  := c.global.getClientDefault([]string{"cluster.list.columns"}, defaultClusterColumns)
+
 	cmd.Flags().StringVarP(&c.flagColumns, "columns", "c", defaultClusterColumns, i18n.G("Columns")+"``")
-	cmd.Flags().StringVarP(&c.flagFormat, "format", "f", "table", i18n.G(`Format (csv|json|table|yaml|compact), use suffix ",noheader" to disable headers and ",header" to enable it if missing, e.g. csv,header`)+"``")
+	cmd.Flags().StringVarP(&c.flagFormat, "format", "f", defaultFormat, i18n.G(`Format (csv|json|table|yaml|compact), use suffix ",noheader" to disable headers and ",header" to enable it if missing, e.g. csv,header`)+"``")
 	cmd.Flags().BoolVar(&c.flagAllProjects, "all-projects", false, i18n.G("Display clusters from all projects"))
 
 	cmd.PreRunE = func(cmd *cobra.Command, args []string) error {
@@ -1092,7 +1095,9 @@ Pre-defined column shorthand chars:
   n - Name
   t - Token
   E - Expires At`))
-	cmd.Flags().StringVarP(&c.flagFormat, "format", "f", "table", i18n.G(`Format (csv|json|table|yaml|compact), use suffix ",noheader" to disable headers and ",header" to enable if demanded, e.g. csv,header`)+"``")
+	defaultFormat          := c.global.getClientDefault([]string{"cluster.list-tokens.format", "format"} , "table")
+	defaultclusterTokensColumns  := c.global.getClientDefault([]string{"cluster.list-tokens.columns"}, defaultclusterTokensColumns)
+	cmd.Flags().StringVarP(&c.flagFormat, "format", "f", defaultFormat, i18n.G(`Format (csv|json|table|yaml|compact), use suffix ",noheader" to disable headers and ",header" to enable if demanded, e.g. csv,header`)+"``")
 	cmd.Flags().StringVarP(&c.flagColumns, "columns", "c", defaultclusterTokensColumns, i18n.G("Columns")+"``")
 
 	cmd.RunE = c.Run
